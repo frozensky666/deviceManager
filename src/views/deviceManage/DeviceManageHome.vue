@@ -55,7 +55,7 @@
         z-index: 1;
         left: 20px;
         line-height: 50px;
-        color: blue;
+        color: #006aff;
         cursor: pointer;
     }
 </style>

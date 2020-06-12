@@ -1,10 +1,12 @@
 <template>
-    <div>物模型</div>
+    <div>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "ItemModel"
+        name: "LifeTimeContainer"
     }
 </script>
 

@@ -1,10 +1,12 @@
 <template>
-    <div>设备组管理</div>
+    <div>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "GroupManage"
+        name: "ItemModelContainer"
     }
 </script>
 

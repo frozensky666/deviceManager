@@ -23,11 +23,23 @@
         data() {
             return {
                 formatData: {
-                    name: "这是一段测试的Json脚本",
-                    int: 123456,
-                    double: 123.456789,
-                    inner: {
-                        aaa: "妙啊"
+                    a:{
+                        name: "这是一段测试的Json脚本",
+                        int: 123456,
+                        double1: 123.456789,
+                        double2: 123.456789,
+                        double3: 123.456789,
+                        double4: 123.456789,
+                        double5: 123.456789,
+                        double6: 123.456789,
+                        double7: 123.456789,
+                        double8: 123.456789,
+                        double9: 123.456789,
+                        double10: 123.456789,
+                        double11: 123.456789,
+                        inner: {
+                            aaa: "妙啊"
+                        }
                     }
                 },
                 lastTime: "2020/6/5"

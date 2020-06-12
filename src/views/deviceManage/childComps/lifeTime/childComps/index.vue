@@ -24,9 +24,9 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div>上线/下线</div>
-                    <div>删除</div>
-                    <div>开启/禁用</div>
+                    <el-button size="mini">上线/下线</el-button>
+                    <el-button size="mini">删除</el-button>
+                    <el-button size="mini">开启/禁用</el-button>
                 </div>
             </div>
         </div>

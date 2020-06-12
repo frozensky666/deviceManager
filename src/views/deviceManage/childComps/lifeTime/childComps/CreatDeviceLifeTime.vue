@@ -6,6 +6,10 @@
                 <el-input class="item-width"></el-input>
             </div>
             <div class="form-item">
+                IP 地址
+                <el-input class="item-width"></el-input>
+            </div>
+            <div class="form-item">
                 设备模型
                 <el-select class="item-width" v-model="deviceName" placeholder="请选择">
                 </el-select>
@@ -17,7 +21,7 @@
             </div>
             <div class="form-item">
                 所属物模型
-                <el-select class="item-width" v-model="model" placeholder="请选择">
+                <el-select class="item-width" v-model="model" placeholder="请选择" multiple>
                 </el-select>
             </div>
             <div class="form-item">

@@ -1,12 +1,12 @@
 <template>
     <el-container>
         <el-aside width="18%">
-            <div class="nav" :style="{height: height + 'px'}">
+            <div class="nav" :style="{'min-height': minHeight + 'px'}">
                 <router-link class="nav-item" to="/deviceManage"><i class="el-icon-menu"></i><span>设备管理</span></router-link>
                 <router-link class="nav-item" to="/another"><i class="el-icon-location"></i><span>其他</span></router-link>
             </div>
         </el-aside>
-        <el-container>
+        <el-container ref="ct">
             <div class="dashboard">
                 <router-view></router-view>
             </div>
@@ -17,11 +17,19 @@
 <script>
     export default {
         name: "Container",
-        computed: {
-            height() {
-                return window.screen.height - 183;
-            }
+        data() {
+          return {
+              minHeight: 0
+          }
         },
+        methods: {
+          getHeight() {
+              return window.screen.height - 183;
+          }
+        },
+        mounted() {
+            this.minHeight = this.getHeight();
+        }
     }
 </script>
 
@@ -49,6 +57,7 @@
     }
     .dashboard {
         width: 100%;
+        background-color: #fff;
     }
     .router-link-active {
         color: yellow;
