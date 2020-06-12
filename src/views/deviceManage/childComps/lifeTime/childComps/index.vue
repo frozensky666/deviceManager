@@ -8,7 +8,7 @@
         <div>
             <div class="lifeTimeCard" v-for="i in 3" :key="i">
                 <div class="left">
-                    <div>
+                    <div style="width: 150px">
                         <router-link to="/deviceManage/lifeTime/DeviceDetails" style="color: blue">
                             我的Ipad
                         </router-link>
