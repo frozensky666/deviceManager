@@ -46,7 +46,7 @@ Vue.use(VueRouter);
           redirect: {name: 'LifeTimeContainer'},
           children: [
             {
-              path: 'lifetime',
+              path: 'lifeTime',
               name: "LifeTimeContainer",
               component: LifeTimeContainer,
               redirect: {name: 'LifeTime'},
