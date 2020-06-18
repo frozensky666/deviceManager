@@ -1,14 +1,14 @@
 <template>
     <div class="wrapper">
         <div class="details">
-            <pre>设备名称: {{name}}</pre>
-            <pre>设备模型: {{model}}</pre>
-            <pre>设备状态: {{state}}</pre>
-            <pre>上线日期: {{time}}</pre>
-            <pre>在线时间: {{period}}</pre>
-            <pre>　所属组: {{group}}</pre>
-            <pre>　　数量: {{number}}</pre>
+            <pre>设备名称: {{deviceName}}</pre>
+            <pre>设备描述: {{deviceDescription}}</pre>
+            <pre>设备状态: {{deviceStatus?"已开启":"已禁用"}}</pre>
+            <pre>上线日期: {{createTime}}</pre>
+            <pre>更新日期: {{updateTime}}</pre>
+            <pre>　所属组: {{groupName}}</pre>
             <pre>通讯协议: {{protocol}}</pre>
+            <pre>IP　地址: {{ipAddress}}</pre>
         </div>
     </div>
 </template>
@@ -18,14 +18,44 @@
         name: "DeviceDetails",
         data() {
             return {
-                name: "Ipad",
-                model: "平板电脑模型",
-                state: "在线",
-                time: "2020/6/5 10: 00",
-                period: "20h",
-                group: "个人电脑组",
-                number: 2,
-                protocol: "HTTP"
+                "createTime": "2020-06-16T09:54:55.273Z",
+                "deviceDescription": "string",
+                "deviceId": 0,
+                "deviceName": "string",
+                "deviceStatus": 0,
+                "groupName": 0,
+                "ipAddress": "string",
+                "onlineTime": "2020-06-16T09:54:55.273Z",
+                "protocol": "string",
+                "updateTime": "2020-06-16T09:54:55.273Z"
+            }
+        },
+        mounted() {
+            if(this.$route.query.deviceId) {
+                this.$req._get("/device/get",{
+                    params: {
+                        deviceId: this.$route.query.deviceId
+                    }
+                }).then(resp => {
+                    this.deviceName = resp.data.deviceName;
+                    this.deviceDescription = resp.data.deviceDescription;
+                    this.deviceStatus = resp.data.deviceStatus;
+                    this.createTime = resp.data.createTime;
+                    this.groupId = resp.data.groupId;
+                    this.protocol = resp.data.protocol;
+                    this.ipAddress = resp.data.ipAddress;
+                    return this.groupId
+                }).then(groupId => {
+                    this.$req._get("/group/get",{
+                        params: {
+                            groupId
+                        }
+                    }).then(resp => {
+                        this.groupName = resp.data.groupName;
+                    })
+                })
+            }else {
+                this.$router.replace("/error");
             }
         }
     }

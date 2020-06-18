@@ -4,18 +4,18 @@
             <span class="back" @click="$router.back()">&lt;back</span>
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#f0f0f2" active-text-color="#2e54eb">
 
-                <router-link to="/deviceManage/lifeTime">
-                    <el-menu-item index="1">
+                <router-link to="/deviceManage/lifeTime/index">
+                    <el-menu-item index="lifeTime">
                         设备生命周期
                     </el-menu-item>
                 </router-link>
-                <router-link to="/deviceManage/itemModel">
-                    <el-menu-item index="2">
+                <router-link to="/deviceManage/itemModel/index">
+                    <el-menu-item index="itemModel">
                             物模型
                     </el-menu-item>
                 </router-link>
-                <router-link to="/deviceManage/groupManage">
-                    <el-menu-item index="3">
+                <router-link to="/deviceManage/groupManage/index">
+                    <el-menu-item index="groupManage">
                         设备组管理
                     </el-menu-item>
                 </router-link>
@@ -32,10 +32,12 @@
         name: "DeviceManageHome",
         data() {
             return {
-                activeIndex: "1"
+                activeIndex: null
             }
         },
-        methods: {
+        mounted() {
+            let path = this.$route.path.split("/");
+            this.activeIndex = path[2];
         }
     }
 </script>

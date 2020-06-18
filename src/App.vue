@@ -9,6 +9,6 @@
   }
   html,body {
     font-size: 14px;
-    background-color: rgb(74, 82, 89);
+    /*background-color: rgb(74, 82, 89);*/
   }
 </style>

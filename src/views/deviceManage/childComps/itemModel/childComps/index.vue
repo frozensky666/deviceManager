@@ -7,7 +7,7 @@
         </div>
         <div>
             <el-table
-                    :data="tableData"
+                    :data="models"
                     style="width: 100%">
                 <el-table-column type="expand">
                     <template slot-scope="props">
@@ -46,12 +46,31 @@
                 </el-table-column>
                 <el-table-column
                         label="操作">
-                    <router-link to="/deviceManage/itemModel/ItemModelEdition">
-                        <el-button style="background-color: blue;color: white" size="mini">编辑</el-button>
-                    </router-link>
-                    <el-button style="background-color: red;color: white" size="mini">删除</el-button>
+                    <template slot-scope="scope">
+                        <router-link :to='{name:"ItemModelEdition",query:{
+                                modelId: scope.row.modelId
+                            },
+                            params: {
+                                data: scope.row
+                            }
+                        }'>
+                            <el-button style="background-color: blue;color: white" size="mini">编辑</el-button>
+                        </router-link>
+                        <el-button style="background-color: red;color: white" size="mini" @click="deleteModel(scope.row.modelId)">删除</el-button>
+                    </template>
                 </el-table-column>
             </el-table>
+
+            <el-pagination
+                    style="margin-left: 100px"
+                    background
+                    layout="prev, pager, next"
+                    :total="total"
+                    :page-size="pageSize"
+                    :current-page.sync="currentPage"
+                    @current-change="pageChange"
+            >
+            </el-pagination>
         </div>
     </div>
 </template>
@@ -61,52 +80,43 @@
         name: "ItemModel",
         data() {
             return {
-                tableData: [
-                    {
-                        "attrIdentifier": "string",
-                        "attrName": "string",
-                        "callMethod": 0,
-                        "dataLen": 0,
-                        "dataMax": 0,
-                        "dataMin": 0,
-                        "dataType": "string",
-                        "dataUnit": "string",
-                        "modelDescription": "string",
-                        "modelName": "string",
-                        "serviceDescription": "string",
-                        "serviceIdentifier": "string",
-                        "serviceName": "string"
-                    },{
-                        "attrIdentifier": "string",
-                        "attrName": "string",
-                        "callMethod": 0,
-                        "dataLen": 0,
-                        "dataMax": 0,
-                        "dataMin": 0,
-                        "dataType": "string",
-                        "dataUnit": "string",
-                        "modelDescription": "string",
-                        "modelName": "string",
-                        "serviceDescription": "string",
-                        "serviceIdentifier": "string",
-                        "serviceName": "string"
-                    },{
-                        "attrIdentifier": "string",
-                        "attrName": "string",
-                        "callMethod": 0,
-                        "dataLen": 0,
-                        "dataMax": 0,
-                        "dataMin": 0,
-                        "dataType": "string",
-                        "dataUnit": "string",
-                        "modelDescription": "string",
-                        "modelName": "string",
-                        "serviceDescription": "string",
-                        "serviceIdentifier": "string",
-                        "serviceName": "string"
-                    },
-                ]
+                models: [],
+                currentPage: 0,
+                pageSize : 5,
+                total: 1000,
             }
+        },
+        mounted() {
+            this.getModels(0,this.pageSize);
+        },
+        methods: {
+            getModels(page,size) {
+                this.$req._get("/model/getall",{
+                    params: {
+                        page,
+                        size
+                    }
+                }).then(resp => {
+                    this.models= resp.data.result;
+                    this.total = resp.data.totalNum;
+                })
+            },
+            pageChange(current) {
+                this.getGroups(current-1,this.pageSize);
+            },
+            deleteModel(modelId) {
+                confirm("确定删除？") &&
+                this.$req._delete("/model/delete", {
+                    params: {
+                        modelId: modelId
+                    }
+                }).then(resp => {
+                    alert(resp.data);
+                    location.reload();
+                }).catch(err => {
+                    alert("删除失败！");
+                })
+            },
         }
     }
 </script>

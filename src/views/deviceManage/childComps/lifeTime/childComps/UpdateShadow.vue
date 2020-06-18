@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="wrapper-inner">
-            <el-button type="primary" style="margin-bottom: 20px">更新影子</el-button>
+            <el-button type="primary" style="margin-bottom: 20px" @click="updateShadow">更新影子</el-button>
             <div>
                 <div style="margin-bottom: 20px">最后更新时间 {{lastTime}}</div>
                 <json-viewer
@@ -22,27 +22,43 @@
         name: "UpdateShadow",
         data() {
             return {
-                formatData: {
-                    a:{
-                        name: "这是一段测试的Json脚本",
-                        int: 123456,
-                        double1: 123.456789,
-                        double2: 123.456789,
-                        double3: 123.456789,
-                        double4: 123.456789,
-                        double5: 123.456789,
-                        double6: 123.456789,
-                        double7: 123.456789,
-                        double8: 123.456789,
-                        double9: 123.456789,
-                        double10: 123.456789,
-                        double11: 123.456789,
-                        inner: {
-                            aaa: "妙啊"
-                        }
-                    }
-                },
+                formatData: {},
                 lastTime: "2020/6/5"
+            }
+        },
+        mounted() {
+            this.getJson(false);
+        },
+        methods: {
+            updateShadow() {
+                this.$req._get("/shadow/update",{
+                    params: {
+                        shadowId: this.formatData.shadowId
+                    }
+                }).then(resp => {
+                    console.log(resp.data);
+                    if(resp.data === "Success") {
+                        this.getJson(false);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+            getJson(refresh) {
+                if(this.$route.query.deviceId) {
+                    this.$req._get("/shadow/get",{
+                        params: {
+                            deviceId: this.$route.query.deviceId
+                        }
+                    }).then(resp => {
+                        this.formatData = JSON.parse(resp.data);
+                        if(refresh)window.location.reload();
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }else {
+                    this.$router.replace("/error");
+                }
             }
         }
     }

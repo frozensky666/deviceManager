@@ -1,11 +1,11 @@
 <template>
     <el-container>
-        <el-aside width="18%">
-            <div class="nav" :style="{'min-height': minHeight + 'px'}">
+        <aside class="nav" >
+<!--            <div class="nav" :style="{'min-height': minHeight + 'px'}">-->
                 <router-link class="nav-item" to="/deviceManage"><i class="el-icon-menu"></i><span>设备管理</span></router-link>
                 <router-link class="nav-item" to="/another"><i class="el-icon-location"></i><span>其他</span></router-link>
-            </div>
-        </el-aside>
+<!--            </div>-->
+        </aside>
         <el-container ref="ct">
             <div class="dashboard">
                 <router-view></router-view>
@@ -58,8 +58,17 @@
     .dashboard {
         width: 100%;
         background-color: #fff;
+        margin-left: 180px;
     }
     .router-link-active {
         color: yellow;
+    }
+    aside {
+        width: 180px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left:0;
+        display: block;
     }
 </style>
